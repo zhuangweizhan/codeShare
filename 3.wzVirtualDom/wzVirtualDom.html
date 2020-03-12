@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <title>virtualDom个人理解</title>
+    <meta name="keywords" content="shopInfo.shopName?if_exists" />
+    <meta name="description" content="shopInfo.shopName?if_exists" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+
+<body>
+    <div onclick="clickthis()" style="text-align: center;color:red;" >点击触发虚拟dom同步页面</div>
+    <div id="content" style="text-align: center;max-width: 400px;margin: 0 auto;"></div>
+    <script src="wzVirtualDom.js"></script>
+    <script>
+
+        let div_child_1_2 = new WzElement('div', { class: 'my-div-1—2' }, ["我是子集2"], "test222" );
+        let div_child_1_1 = new WzElement('div', { class: 'my-div-1-1' }, ["我是子集1"], "test111" );
+
+        let div_child_2= new WzElement('div', { class: 'my-div-22' }, [div_child_1_2], "test22" );
+        let div_child_1 = new WzElement('div', { class: 'my-div-11' }, [div_child_1_1], "test11" );
+
+        let div_child_1_new = new WzElement('div', { class: 'my-div-11' ,style: 'color:red;'}, [div_child_1_1], "test11" );
+
+        let div_1 = new WzElement('div', { class: 'my-div-1' }, [ div_child_1 ], "id_1" );
+        let div_2 = new WzElement('div', { class: 'my-div-2', id: 'id_2' }, [ div_child_1_new, div_child_2 ], "test1" );
+
+        let root = div_1.render();
+        let pathchs = diff(div_1, div_2)
+        document.getElementById('content').innerHTML = "当前计算两者的虚拟dom为：" + JSON.stringify(pathchs);
+     
+        function clickthis(){
+            reloadDom(root, pathchs);
+        }
+
+    </script>
+    <style>
+        div{
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+	
+		<div style="position: fixed;bottom: 0;text-align: center;width: 100%;padding: 15px 0;background-color: #bfd6e8;color: white;font-size:14px;">
+		<div style="font-size:15px;">欢迎访问主页</div>
+		<div>个人主页：
+			<a style="color:white;" target="_blank" href="http://www.zhuangweizhan.cn">www.zhuangweizhan.cn</a>
+		</div>
+		<div>个人github：
+			<a style="color:white;" target="_blank" href="https://github.com/zhuangweizhan">https://github.com/zhuangweizhan</a>
+		</div>
+		<div>个人csdn：
+			<a style="color:white;" target="_blank" href="https://blog.csdn.net/zhuangweizhan">https://blog.csdn.net/zhuangweizhan</a>
+		</div>
+	</div>
+
+</body>
+
+</html>

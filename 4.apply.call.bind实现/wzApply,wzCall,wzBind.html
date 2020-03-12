@@ -1,0 +1,121 @@
+<html>
+
+<head>
+	<title>个人apply, call, bind</title>
+</head>
+
+<body>
+	
+	<div style="text-align: center;margin-top: 10px;">
+		<div>小明，18，篮球</div>
+		<input type="button" id="xiaoming"  value="点我触发wzApply"/>
+	</div>
+
+	<div style="text-align: center;margin-top: 10px;">
+		<div>小红，19，羽毛球</div>
+		<input type="button" id="xiaohong" value="点我触发wzCall" />
+	</div>
+
+	<div style="text-align: center;margin-top: 10px;">
+		<div>小刚，20，足球</div>
+		<input type="button" id="xiaogang" value="点我触发wzBind" />
+	</div>
+
+	<script>
+	
+		Function.prototype.wzApply = function (context) {
+			const thisContext = context ? context : windows;
+			thisContext.fn = this;
+			var result = null;
+			if (arguments[1]) {
+				result = thisContext.fn(...arguments[1]);
+			} else {
+				result = thisContext.fn();
+			}
+			delete thisContext.fn;
+			return result;
+		}
+
+		Function.prototype.wzCall = function (context) {
+			const thisContext = context ? context : windows;
+			thisContext.fn = this;
+			var result = null;
+			var args = [...arguments].slice(1)
+			if (args) {
+				result = thisContext.fn(...args);
+			} else {
+				result = thisContext.fn();
+			}
+			delete thisContext.fn;
+			return result;
+		}
+
+		Function.prototype.wzBind = function (context) {
+			var _this = this;
+			console.log("arguments==" + arguments);
+			var arg = [...arguments].slice(1);
+			return function F(){
+				console.log("aaa");
+				if( this instanceof F ){
+					console.log("bbb");
+					return new _this(arg.concat(...arguments));
+				}
+				console.log("cccc");
+				return _this.apply( context, arg.concat(...arguments) );
+			}
+		}
+
+		var a = {	
+			name: "小明",
+			age: 18,
+			hobby: '篮球'
+		}
+
+		var b = {
+			name: "小红",
+			age: 19,
+			hobby: '羽毛球'
+		}
+
+		var c = {
+			name: "小刚",
+			age: 20,
+			hobby: '足球'
+		}
+
+		function getName(longing, shorting) {
+			alert(this.name + "今年" +
+				this.age + "岁，优点：" +
+				longing + "，缺点：" + shorting);
+		}
+
+
+		window.onload= function(){
+			document.getElementById('xiaoming').addEventListener('click',function(){
+				getName.wzApply(a, ["比较帅", "没我帅"])
+			});
+			document.getElementById('xiaohong').addEventListener('click', function(){
+				getName.wzCall( b, "很积极", "没我积极" )
+			});
+			document.getElementById('xiaogang').addEventListener('click', function(){
+				var fn = getName.wzBind( c, "很励志", "没我励志" );
+				fn();
+			});
+		}
+
+	</script>
+	
+	<div style="position: fixed;bottom: 0;text-align: center;width: 100%;padding: 15px 0;background-color: #bfd6e8;color: white;font-size:14px;">
+		<div style="font-size:15px;">欢迎访问主页</div>
+		<div>个人主页：
+			<a style="color:white;" target="_blank" href="http://www.zhuangweizhan.cn">www.zhuangweizhan.cn</a>
+		</div>
+		<div>个人github：
+			<a style="color:white;" target="_blank" href="https://github.com/zhuangweizhan">https://github.com/zhuangweizhan</a>
+		</div>
+		<div>个人csdn：
+			<a style="color:white;" target="_blank" href="https://blog.csdn.net/zhuangweizhan">https://blog.csdn.net/zhuangweizhan</a>
+		</div>
+	</div>
+</body>
+</html>

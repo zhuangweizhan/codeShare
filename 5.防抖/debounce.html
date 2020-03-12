@@ -1,0 +1,70 @@
+<html>
+
+<head>
+	<title>节流</title>
+</head>
+
+<body>
+	<div style="text-align: center;height:100000px;">
+		<input id="text" type="text" />
+		<div>该输入控件已采用节流, 可看打印</div>
+	</div>
+</body>
+<script>
+
+	window.onload = function () {
+		document.getElementById("text").addEventListener('input',
+			debounce(inputConsole, 2000)
+		)
+	}
+
+	function inputConsole(content) {
+		var date = new Date();
+		console.log("打印成功:" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
+	}
+
+	const debounce = (cb, wait = 500, immediate = true) => {
+		let timer = 0;
+		let context = null;
+		let param = null;
+		const later = () => setTimeout(() => {
+			timer = null;
+			if (!immediate) {
+				cb.apply(context, param);
+				context = null;
+				param = null;
+			}
+		}, wait);
+
+		return function (...args) {
+			if (!timer) {
+				timer = later();
+				if (immediate) {
+					cb.apply(this, args);
+				} else {
+					context = this;
+					param = args;
+				}
+			} else {
+				clearTimeout(timer);
+				time = later();
+			}
+		}
+	}
+
+</script>
+
+	<div style="position: fixed;bottom: 0;text-align: center;width: 100%;padding: 15px 0;background-color: #bfd6e8;color: white;font-size:14px;">
+		<div style="font-size:15px;">欢迎访问主页</div>
+		<div>个人主页：
+			<a style="color:white;" target="_blank" href="http://www.zhuangweizhan.cn">www.zhuangweizhan.cn</a>
+		</div>
+		<div>个人github：
+			<a style="color:white;" target="_blank" href="https://github.com/zhuangweizhan">https://github.com/zhuangweizhan</a>
+		</div>
+		<div>个人csdn：
+			<a style="color:white;" target="_blank" href="https://blog.csdn.net/zhuangweizhan">https://blog.csdn.net/zhuangweizhan</a>
+		</div>
+	</div>
+
+</html>

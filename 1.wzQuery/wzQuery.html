@@ -1,0 +1,124 @@
+<html>
+
+<head>
+    <title>wzQuery源码</title>
+    <meta name="keywords" content="shopInfo.shopName?if_exists" />
+    <meta name="description" content="shopInfo.shopName?if_exists" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+<body>
+    <div id="app" class="body">
+        <div class="b_header">
+            <span>wz手写query源码</span>
+        </div>
+        <div class="b_content">
+            <div id="htmlId">点击我重新赋值</div>
+            <div id="cssId" style="color: black;">点击我变成红色</div>
+            <div id="showId">点击我变成隐藏</div>
+            <div id="ajaxId">点击我触发ajax</div>
+            <div id="findId">
+                点击我触发链式变化：<div class="f_div">我是子内容</div>
+            </div>
+            <div id="changeId">点击我改变样式选择器</div>
+            <div class="cssSelector">样式选择器</div>
+            <div class="cssSelector">样式选择器</div>
+            <div class="cssSelector">样式选择器</div>
+            <div class="cssSelector">样式选择器</div>
+        </div>
+    </div>
+
+    <script src="wzQuery.js"></script>
+
+    <script>
+        window.onload = function () {
+            var btnList = document.getElementById("app");
+            btnList.addEventListener('click', function (e) {
+                var id = e.target.id;
+                switch (id) {
+                    case 'htmlId':
+                        $('#htmlId').html("html赋值成功");
+                        break;
+                    case 'cssId':
+                        $('#cssId').css("color", "red");
+                        break;
+                    case 'showId':
+                        $("#showId").hide();
+                        break;
+                    case 'ajaxId':
+                        $().ajax({
+                            url: 'http://120.27.69.152:6380/menu/findMenuByRoleId?roleId=1',
+                            dataType: 'GET',
+                            success: function (res) {
+                                alert("接口返回数据：" + res);
+                            }
+                        })
+                        break;
+                    case 'changeId':
+                        $(".cssSelector").css("color", "#0099dd");
+                        break;
+                    case 'findId':
+                        $("#findId").find('.f_div').css("color", "red");
+                        break;
+                }
+            }, false);
+        }
+    </script>
+
+    <style>
+        .body {
+            text-align: left;
+            width: 300px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+
+        .body .b_header {
+            display: flex;
+            justify-item: center;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            margin-bottom: 20px;
+        }
+
+        .body .b_header img {
+            height: 40px;
+            width: 80px;
+        }
+
+        .body .b_header span {
+            font-size: 21px;
+        }
+
+        .body .b_content {
+            border: 1px solid #edebeb;
+            padding-top: 20px;
+        }
+
+        .body div {
+            padding-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+
+    
+	<div style="position: fixed;bottom: 0;text-align: center;width: 100%;padding: 15px 0;background-color: #bfd6e8;color: white;font-size:14px;">
+		<div style="font-size:15px;">欢迎访问主页</div>
+		<div>个人主页：
+			<a style="color:white;" target="_blank" href="http://www.zhuangweizhan.cn">www.zhuangweizhan.cn</a>
+		</div>
+		<div>个人github：
+			<a style="color:white;" target="_blank" href="https://github.com/zhuangweizhan">https://github.com/zhuangweizhan</a>
+		</div>
+		<div>个人csdn：
+			<a style="color:white;" target="_blank" href="https://blog.csdn.net/zhuangweizhan">https://blog.csdn.net/zhuangweizhan</a>
+		</div>
+	</div>
+
+
+</body>
+
+</html>
