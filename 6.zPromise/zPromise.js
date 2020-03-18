@@ -1,3 +1,9 @@
+/*
+	本代码来自weizhan
+	github链接：https://github.com/zhuangweizhan
+	csdn链接：https://blog.csdn.net/zhuangweizhan/
+*/
+
 var PEDDING = "pedding";
 var REJECTED = "rejected";
 var REFULLED = "refulled";

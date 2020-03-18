@@ -1,0 +1,117 @@
+<html>
+
+<head>
+    <title>zRouter源码</title>
+    <meta name="keywords" content="shopInfo.shopName?if_exists" />
+    <meta name="description" content="shopInfo.shopName?if_exists" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+<body>
+    <div id="app" class="body">
+        <div class="b_header">
+            <span>zRouter</span>
+        </div>
+        <div class="b_content">
+            <div>
+                <a href="#/" class="c_tag" >首页</a>
+                <a href="#/product" class="c_tag" >商品页面</a>
+                <a href="#/order" class="c_tag" >订单页面</a>
+            </div>
+            <div class="c_inner" id="content" >
+                这是首页
+            </div>
+        </div>
+   
+    </div>
+
+    <script src="zRouter.js"></script>
+
+    <script>
+        window.onload = function () {
+            var cont = document.querySelector('#content');
+            var router = new zRouter();
+            router.route( "/", function(){
+                cont.innerHTML = "这是首页";
+            });
+            router.route( "/product", function(){
+                cont.innerHTML = "这是商品页面";
+            });
+            router.route( "/order", function(){
+                cont.innerHTML = "这是订单页面";
+            });
+        }
+
+
+    </script>
+
+    <style>
+        .body {
+            text-align: left;
+            width: 80vw;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+
+        .body .b_header {
+            display: flex;
+            justify-item: center;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            margin-bottom: 20px;
+        }
+
+        .body .b_header img {
+            height: 40px;
+            width: 80px;
+        }
+
+        .body .b_header span {
+            font-size: 21px;
+        }
+
+        .body .b_content {
+            border: 1px solid #edebeb;
+            padding-top: 20px;
+        }
+        .body .b_content div {
+            overflow: hidden;
+        }
+
+        .body .b_content .c_tag{
+            float:left;
+            width: 33%;
+        }
+        .body .b_content  .c_inner{
+            background: #f1eded;
+            height: 300px;
+            line-height: 300px;
+        }
+
+        .body div {
+            padding-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+
+    
+	<div style="position: fixed;bottom: 0;text-align: center;width: 100%;padding: 15px 0;background-color: #bfd6e8;color: white;font-size:14px;">
+		<div style="font-size:15px;">欢迎访问主页</div>
+		<div>个人主页：
+			<a style="color:white;" target="_blank" href="http://www.zhuangweizhan.cn">www.zhuangweizhan.cn</a>
+		</div>
+		<div>个人github：
+			<a style="color:white;" target="_blank" href="https://github.com/zhuangweizhan">https://github.com/zhuangweizhan</a>
+		</div>
+		<div>个人csdn：
+			<a style="color:white;" target="_blank" href="https://blog.csdn.net/zhuangweizhan">https://blog.csdn.net/zhuangweizhan</a>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

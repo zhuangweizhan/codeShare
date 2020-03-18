@@ -1,9 +1,15 @@
 
+/*
+	本代码来自weizhan
+	github链接：https://github.com/zhuangweizhan
+	csdn链接：https://blog.csdn.net/zhuangweizhan/
+*/
+
 (function (window) {
-    var WzQuery = function (selector) {
-        return new WzQuery.fn.init(selector);
+    var zQuery = function (selector) {
+        return new zQuery.fn.init(selector);
     }
-    WzQuery.fn = {
+    zQuery.fn = {
         init: function (selector, myDocument) {
             // this.dom = this.dom ? this.dom : [];
             this.dom = [];
@@ -83,7 +89,7 @@
         },
     }
 
-    WzQuery.fn.init.prototype = WzQuery.fn;
-    window.$ = WzQuery;
+    zQuery.fn.init.prototype = zQuery.fn;
+    window.$ = zQuery;
 })(window);
 

@@ -1,3 +1,9 @@
+/*
+	本代码来自weizhan
+	github链接：https://github.com/zhuangweizhan
+	csdn链接：https://blog.csdn.net/zhuangweizhan/
+*/
+
 const stateType = {
     Change: 'Change',//表示元素有变化
     Move: 'Move',//表示移动了位置
@@ -9,7 +15,7 @@ const stateType = {
     AddProps: 'AddProps',//表示该属性是新增的
 };
 
-class WzElement {
+class zElement {
 
     /*
         tag('string'):标签的名称
@@ -51,7 +57,7 @@ class WzElement {
         }
         if (children.length > 0) {
             children.forEach(item => {
-                if (item instanceof WzElement) {//
+                if (item instanceof zElement) {//
                     var root = this._createDom(
                         item.tag,
                         item.props,

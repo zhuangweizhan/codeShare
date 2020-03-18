@@ -1,7 +1,7 @@
 <html>
 
 <head>
-	<title>防抖html</title>
+	<title>节流</title>
 </head>
 
 <body>
@@ -12,38 +12,54 @@
 </body>
 <script>
 
+	/*
+		本代码来自weizhan
+		github链接：https://github.com/zhuangweizhan
+		csdn链接：https://blog.csdn.net/zhuangweizhan/
+	*/
+
 	window.onload = function () {
 		document.getElementById("text").addEventListener('input',
-			throttle(inputConsole, 2000)
+			debounce(inputConsole, 2000)
 		)
 	}
-	
-	function inputConsole() {
+
+	function inputConsole(content) {
 		var date = new Date();
 		console.log("打印成功:" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
 	}
 
-	function throttle(func,  delay=500 ){
-			var timer = 0;
-			var startTime = Date.now();
-			return function( ...args ){
-				var context = this;
-				var currentTime =  Date.now();//当前时间
-				var diffTime = currentTime - startTime; //时间差
-				clearTimeout(timer);
-				if( diffTime > delay){
-					func.apply( context, args);
-					startTime =  Date.now();
-				}else{
-					timer = setTimeout( function(){
-						throttle( func, delay);
-					});
-				}
+	const debounce = (cb, wait = 500, immediate = true) => {
+		let timer = 0;
+		let context = null;
+		let param = null;
+		const later = () => setTimeout(() => {
+			timer = null;
+			if (!immediate) {
+				cb.apply(context, param);
+				context = null;
+				param = null;
 			}
-		}		
+		}, wait);
 
-	</script>
-	
+		return function (...args) {
+			if (!timer) {
+				timer = later();
+				if (immediate) {
+					cb.apply(this, args);
+				} else {
+					context = this;
+					param = args;
+				}
+			} else {
+				clearTimeout(timer);
+				time = later();
+			}
+		}
+	}
+
+</script>
+
 	<div style="position: fixed;bottom: 0;text-align: center;width: 100%;padding: 15px 0;background-color: #bfd6e8;color: white;font-size:14px;">
 		<div style="font-size:15px;">欢迎访问主页</div>
 		<div>个人主页：
@@ -56,4 +72,5 @@
 			<a style="color:white;" target="_blank" href="https://blog.csdn.net/zhuangweizhan">https://blog.csdn.net/zhuangweizhan</a>
 		</div>
 	</div>
+
 </html>

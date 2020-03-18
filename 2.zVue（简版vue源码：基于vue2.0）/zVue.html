@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>wz手写vue源码</title>
+    <title>z手写vue源码</title>
 </head>
 <body>
   <div id="app" class="body" >
 	<div class="b_header" >
-		<img class="b_img" src="https://cn.vuejs.org/images/logo.png" /><span>wz手写vue源码</span>
+		<img class="b_img" src="https://cn.vuejs.org/images/logo.png" /><span>z手写vue源码</span>
 	</div>
 	<div class="b_content" >
 		<div class="n_name" >姓名：{{name}}</div>
@@ -16,9 +16,9 @@
 		</div>
 		<div>{{content}}</div>
 		<div>
-			<input type="text" wz-model="content" placeholder="请输入自我介绍"  />
+			<input type="text" z-model="content" placeholder="请输入自我介绍"  />
 		</div>
-		<div wz-html="htmlSpan" ></div>
+		<div z-html="htmlSpan" ></div>
 		<button @click="changeName" >点击提示</button>
 	</div>
   </div>
@@ -57,9 +57,9 @@
 	margin-top: 20px;
   }
   </style>
-  <script src="./wzVue.js"></script>
+  <script src="./zVue.js"></script>
   <script>
-    const w = new wzVue({
+    const w = new zVue({
       el: '#app',
       data: {
         "name": "加载中...",

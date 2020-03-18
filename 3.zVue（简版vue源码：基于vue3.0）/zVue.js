@@ -1,80 +1,46 @@
 /*
 	本代码来自weizhan
+	github链接：https://github.com/zhuangweizhan
+	csdn链接：https://blog.csdn.net/zhuangweizhan/
 */
-class wzVue {
+class zVue {
 	constructor(options){
 		this.$options = options;
-		console.log("this.$options===" + JSON.stringify(this.$options) );
 		this.$data = options.data;
 		this.$el = options.el;
-		this.observer( this.$data );//添加observer监听
-		new wzCompile( options.el, this);//添加文档解析
-		if ( options.created ) {
-			options.created.call(this);
-		}
+		this.$binding = {};//替换原来的dep
+		this.proxyData( this.$data );//添加observer监听
+		new zCompile( options.el, this);//添加文档解析
 	}
 	
-	observer( data ){//监听data数据，双向绑定
+	pushWatch( watcher ){
+		if( !this.$binding[watcher.key] ){
+			this.$binding[watcher.key] = [];
+		}
+		this.$binding[watcher.key].push(watcher);
+	}
+
+	proxyData( data ){//监听data数据，双向绑定
 		if( !data || typeof(data) !== 'object'){
 			return;
 		}
-		Object.keys(data).forEach(key => {//如果是对象进行解析
-			this.observerSet(key, data, data[key]);//监听data对象
-			this.proxyData(key);//本地代理服务
-		});
-	}
-	
-	observerSet( key, obj, value ){
-		this.observer(key);
-		const dep = new Dep();
-		Object.defineProperty( obj, key, {
-			get(){
-				Dep.target && dep.addDep(Dep.target);
-				return value;
-			},
-			set( newValue ){
-				if (newValue === value) {
-				  return;
-				}
-				value = newValue;
-				//通知变化
-				dep.notiyDep();
+		const _this = this;
+		const handler  = {
+			set( target, key, value ) {
+				const rest = Reflect.set(target, key, value);
+				_this.$binding[key].map( item =>  {
+					item.update();
+				})
+				return rest;
 			}
-		})
+		}
+		this.$data = new Proxy( data, handler );
 	}
-	
-	proxyData(key){
-		Object.defineProperty( this, key, {
-			get(){
-				return this.$data[key];
-			},
-			set( newVal ){
-				this.$data[key] = newVal;
-			}
-		})
-	}
-	
-}
 
-//存储数据数组
-class Dep{
-	constructor(){
-		this.deps = [];
-	}
-	
-	addDep(dep){
-		this.deps.push(dep);
-	}
-	
-	notiyDep(){
-		this.deps.forEach(dep => {
-			dep.update();
-		})
-	}
 }
 
 //个人编译器
-class wzCompile{
+class zCompile{
 	constructor(el, vm){
 		this.$el = document.querySelector(el);
 		
@@ -104,24 +70,23 @@ class wzCompile{
 				Array.from(nodeAttrs).forEach( attr => {
 					const attrName = attr.name;//属性名称
 					const attrVal = attr.value;//属性值
-					if( attrName.slice(0,3) === 'wz-' ){
-						var tagName = attrName.substring(3);
+					if( attrName.slice(0,2) === 'z-' ){
+						var tagName = attrName.substring(2);
 						switch( tagName ){
 							case "model":
-								this.wzDir_model( node, attrVal );
+								this.zDir_model( node, attrVal );
 							break;
 							case "html":
-								this.wzDir_html( node, attrVal );
+								this.zDir_html( node, attrVal );
 							break;
 						}
 					}
 					if( attrName.slice(0,1) === '@'  ){
 						var tagName = attrName.substring(1);
-						this.wzDir_click( node, attrVal );
+						this.zDir_click( node, attrVal );
 					}
 				})
 			} else if( node.nodeType == 2 ){//2为属性节点
-				console.log("nodeType=====22");
 			} else if( node.nodeType == 3 ){//3为文本节点
 				this.compileText( node );
 			}
@@ -133,20 +98,20 @@ class wzCompile{
 		})
 	}
 	
-	wzDir_click(node, attrVal){
+	zDir_click(node, attrVal){
 		var fn = this.$vm.$options.methods[attrVal];
 		node.addEventListener( 'click', fn.bind(this.$vm));
 	}
 	
-	wzDir_model( node, value ){
+	zDir_model( node, value ){
 		const vm = this.$vm;
 		this.updaterAll( 'model', node, node.value );
 		node.addEventListener("input", e => {
-		  vm[value] = e.target.value;
+		  vm.$data[value] = e.target.value;
 		});
 	}
 	
-	wzDir_html( node, value ){
+	zDir_html( node, value ){
 		this.updaterHtml( node, this.$vm[value] );
 	}
 	
@@ -170,17 +135,21 @@ class wzCompile{
 				if( key ){
 					const updater = this.updateText;
 					const initVal = node.textContent;//记录原文本第一次的数据
-					updater( node, this.$vm[key], initVal);
-					new Watcher( this.$vm, key, initVal, function( value, initVal ){
-						updater( node, value, initVal  );
-					});
+					updater( node, this.$vm.$data[key], initVal);
+					this.$vm.pushWatch(
+						new Watcher( this.$vm, key, initVal, function( value, initVal ){
+							updater( node, value, initVal  );
+						})
+					);
 				}
 				break;
 			case 'model':
 				const updater = this.updateModel;
-				new Watcher( this.$vm, key, null, function( value, initVal ){
-					updater( node, value );
-				});
+				this.$vm.pushWatch(
+					new Watcher( this.$vm, key, null, function( value, initVal ){
+						updater( node, value );
+					})
+				);
 				break;
 		}
 	}
@@ -205,13 +174,10 @@ class Watcher{
 		this.key = key;
 		this.cb = cb;
 		this.initVal = initVal;
-		Dep.target = this;
-		this.vm[this.key];
-		Dep.target = null;
 	}
 	
 	update(){
-		this.cb.call( this.vm, this.vm[this.key], this.initVal );
+		this.cb.call( this.vm, this.vm.$data[this.key], this.initVal );
 	}
 
 }

@@ -13,19 +13,19 @@
 <body>
     <div onclick="clickthis()" style="text-align: center;color:red;" >点击触发虚拟dom同步页面</div>
     <div id="content" style="text-align: center;max-width: 400px;margin: 0 auto;"></div>
-    <script src="wzVirtualDom.js"></script>
+    <script src="zVirtualDom.js"></script>
     <script>
 
-        let div_child_1_2 = new WzElement('div', { class: 'my-div-1—2' }, ["我是子集2"], "test222" );
-        let div_child_1_1 = new WzElement('div', { class: 'my-div-1-1' }, ["我是子集1"], "test111" );
+        let div_child_1_2 = new zElement('div', { class: 'my-div-1—2' }, ["我是子集2"], "test222" );
+        let div_child_1_1 = new zElement('div', { class: 'my-div-1-1' }, ["我是子集1"], "test111" );
 
-        let div_child_2= new WzElement('div', { class: 'my-div-22' }, [div_child_1_2], "test22" );
-        let div_child_1 = new WzElement('div', { class: 'my-div-11' }, [div_child_1_1], "test11" );
+        let div_child_2= new zElement('div', { class: 'my-div-22' }, [div_child_1_2], "test22" );
+        let div_child_1 = new zElement('div', { class: 'my-div-11' }, [div_child_1_1], "test11" );
 
-        let div_child_1_new = new WzElement('div', { class: 'my-div-11' ,style: 'color:red;'}, [div_child_1_1], "test11" );
+        let div_child_1_new = new zElement('div', { class: 'my-div-11' ,style: 'color:red;'}, [div_child_1_1], "test11" );
 
-        let div_1 = new WzElement('div', { class: 'my-div-1' }, [ div_child_1 ], "id_1" );
-        let div_2 = new WzElement('div', { class: 'my-div-2', id: 'id_2' }, [ div_child_1_new, div_child_2 ], "test1" );
+        let div_1 = new zElement('div', { class: 'my-div-1' }, [ div_child_1 ], "id_1" );
+        let div_2 = new zElement('div', { class: 'my-div-2', id: 'id_2' }, [ div_child_1_new, div_child_2 ], "test1" );
 
         let root = div_1.render();
         let pathchs = diff(div_1, div_2)
