@@ -1,6 +1,0 @@
-.a {
-  font-size: 1px;
-}
-.a .b {
-  font-size: 2px;
-}
