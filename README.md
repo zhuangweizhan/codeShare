@@ -1,60 +1,87 @@
-# 前端源码汇总以及分享
+# 前端手写源码汇总
 
-案例源码具体进入对应文件夹即可获取源码。
+本目录对应个人掘金博客，框架在博客中有对应的讲解以及说明。欢迎查询：
 
-以下为个人汇总：少部分思维原创，部分来自网上大神思路分享，或将其二次改版。
+ https://juejin.im/user/5e8fddc9e51d4546be39a558/posts 
 
-目前还在部分迭代源码中，如需其他简版源码，可留言，空闲时间会补上。
+以下均为个人汇总，本人也是在线奋斗小青年，如有不对的地方，欢迎博客上留言指点。
 
-### 1.zQuery（个人模仿简版jquery源码）
 
-​       1）实现jquery链式 2）实现html, css, attr等样式编辑器)   3）实现简版ajax请求。详情请进入看案例源码。
 
-### 2.zVue（简版vue源码：基于vue2.0）
+喜欢请star。
 
-​    模仿vue的解析过程，实现mvvn架构。根据**Object.defineProperty**模拟包括observer双向绑定，compile解析，watch监听。详情请进入看案例源码。
 
-### 3.zVue（简版vue源码：基于vue3.0）
 
-​      模仿vue的解析过程，实现mvvn架构。根据**proxy**，模拟包括observer双向绑定，compile解析，watch监听。详情请进入看案例源码。
+### (1) zVue（简版vue源码）
 
-### 4.zVirtualDom(简版虚拟dom算法)
+​     基于vue2.0，模仿vue的解析过程，实现mvvn架构。根据**Object.defineProperty**模拟包括observer双向绑定，compile解析，watch监听。详情请进入看案例源码。
 
-​	模拟虚拟dom的解析过程。了解虚拟dom的整体过程。
+​	 基于vue3.0，跟2.0不同的是，采用了proxy实现双向绑定。
 
-### 5.zRouter的实现
+博客链接： https://juejin.im/post/5f0326786fb9a07e976bd945 
 
-​	简版路由的实现
 
-### 6.zPromise的实现
 
-​	模拟简版promise的实现
+### (2) zReact（简版react源码）
 
-### 7.防抖的实现
+ 	模拟react思维，描述 react 跟  reactDom的执行过程，如何render到dom中，react的组件化是如何实现的。
 
-​	简单防抖的实现
+博客链接： https://juejin.im/post/5f154c5f6fb9a07ec07b536b 
 
-### 8.节流的实现
 
-​	简单节流的实现
 
-### 9.apply/call/bind实现
+### (3) zWebpack（简版webpack源码）
 
-​	模拟apply, call, bind的实现过程
+​	模拟webpack的打包过程，webpack是如何编译的，怎么输出到js中，webpack生命周期的模拟，以及loader跟plugins如何实现的
 
-### 10.实现new操作符
+博客链接： https://juejin.im/post/5f1793716fb9a07e8b215a62 
 
-​	模拟new操作
 
-### 11.实现EventEmitter
 
-​	模拟event事件
+### (4) zQuery（简版jquery源码）
 
-### 12.实现柯里化函数
+​       实现jquery链式 ，实现html, css, attr等dom操作  ，简版ajax请求。详情请进入看案例源码。
 
-​	模拟柯里化
+博客链接： https://juejin.im/post/5f1e3897e51d453495702fc4
 
-### 13.实现深拷贝
 
-​	深拷贝源码提供
 
+### (5) zVuex（简版vuex源码）
+
+​	  后续持续更新
+
+
+
+### (6) zVueRouter（简版vue-router源码）
+
+​	  后续持续更新
+
+
+
+### (7) zDiff（简版diff算法源码）
+
+​	  后续持续更新
+
+
+
+### (8) zPromise（简版promise源码）
+
+​	  后续持续更新
+
+
+
+### (9) 原生js源码（模拟js的实现）
+
+​	  后续持续更新
+
+
+
+### (10) zRedux（简版reactRedux源码）
+
+​	  后续持续更新
+
+
+
+### (11) zKoa2（简版koa2代码源码）
+
+​	  后续持续更新
