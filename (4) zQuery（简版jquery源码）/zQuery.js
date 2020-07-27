@@ -11,8 +11,7 @@
     }
     zQuery.fn = {
         init: function (selector, myDocument) {
-            // this.dom = this.dom ? this.dom : [];
-            this.dom = [];
+            this.dom = this.dom ? this.dom : [];
             this.myDocument = myDocument ? myDocument : document;
             const childNodes = this.myDocument.childNodes;
             var rs = null;
