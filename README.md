@@ -56,7 +56,9 @@
 
 ### (6) zVueRouter（简版vue-router源码）
 
-​	  后续持续更新
+​	  	  基于vue，手写Vue-router实现整过程。
+
+博客链接： https://juejin.im/post/6859565866552393741
 
 
 
