@@ -72,7 +72,9 @@
 
 ### (8) zPromise（简版promise源码）
 
-​	  后续持续更新
+​	  模拟promise/A+的过程
+
+博客链接： https://juejin.im/post/6869202482644385806
 
 
 
